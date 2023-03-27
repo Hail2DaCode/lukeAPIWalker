@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
+import LukeForm from "./components/Form";
+import Person from "./components/Person";
+import Planet from "./components/Planet";
+
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useNavigate
+} from "react-router-dom";
 
 function App() {
+  const [currentId, setCurrentId] = useState("")
+  const youvegotid = (newid) => {
+    setCurrentId(newid);
+} 
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter test="Brian">
+    <LukeForm onNewId = { youvegotid }/>
+      <Routes>
+        <Route path="/people/:id" element={<Person id={currentId} error={false}/>} />
+        <Route path="/planets/:id" element={<Planet id={currentId}/>}/>
+      </Routes>
+    </BrowserRouter>
   );
-}
-
+}   
 export default App;
